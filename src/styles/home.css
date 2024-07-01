@@ -1,0 +1,63 @@
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+
+.buttonAddContact {
+    color: #f9bf76;
+    background-color: #615375;
+    border-radius: 5px;
+    border-color: transparent;
+    margin-top: 40px;
+    padding: 8px;
+    font-weight: 600;
+    font-size: 1.2em;
+
+}
+
+.trash,
+.edit {
+    font-size: 25px;
+    color: #7598ac
+}
+
+h4 {
+    color: #7598ac;
+    font-size: 1.3rem;
+}
+
+p {
+    color: #615375;
+    font-size: 1.1rem;
+}
+
+.imagen {
+    border-radius: 50%;
+}
+
+.containerMain {
+    padding: 20px;
+    background-color: #f9be7628;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    border-radius: 2px
+}
+
+.containerInfo {
+    padding-left: 15px;
+}
+
+.icons-container {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icons-container .edit,
+.icons-container .trash {
+    cursor: pointer;
+}

@@ -1,0 +1,38 @@
+h2 {
+    color: #715f89;
+    margin-top: 40px;
+
+}
+
+form {
+    margin-top: 30px;
+    background-color: #f9be7628;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+label {
+    color: #668698;
+    font-weight: 600;
+}
+
+.containerButtons {
+    justify-content: space-around;
+}
+
+.buttonBack {
+    color: #f9bf76;
+    background-color: #615375;
+    border-color: transparent;
+    font-weight: 600;
+
+}
+
+
+.buttonSave {
+    color: #615375;
+    background-color: #f9bf76;
+    border-color: transparent;
+    font-weight: 600;
+
+}

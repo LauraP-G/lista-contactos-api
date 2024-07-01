@@ -1,43 +1,71 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
-
+import { FaArrowLeft } from "react-icons/fa";
+import { CiEdit } from "react-icons/ci";
 import "../../styles/demo.css";
 
 export const Demo = () => {
 	const { store, actions } = useContext(Context);
+	const [contact, setContact] = useState({ name: "", email: "", phone: "", address: "" });
+	const navigate = useNavigate();
+
+	const handleChange = (e) => {
+		// Desestructurar el objeto 'e.target' para obtener los valores de 'name' y 'value'
+		const { name, value } = e.target;
+
+		// Actualizar el estado 'contact' usando 'setContact'
+		// ...contact: Copia todos los valores actuales del objeto 'contact'
+		// [name]: value: Actualiza el valor de la propiedad 'name' con el nuevo 'value'
+		//la key será el name que le hemos dado al input y el valor será el que recoge del introducido por el usuario
+		//si ponemos esto name: value, siempre estemos dandole una key llamada name, por lo tanto es importante añadir corchetes en este caso
+		setContact({ ...contact, [name]: value });
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault(); // Evitar que la página se recargue cuando se envía el formulario.
+		if (store.editContactOrNewContact === false) {
+
+			actions.fetchCreateContact(contact)
+			navigate("/");
+
+		}
+		else {
+
+			actions.fetchUpdateContact(contact)
+			navigate("/");
+		}
+
+	};
 
 	return (
 		<div className="container">
-			<ul className="list-group">
-				{store.demo.map((item, index) => {
-					return (
-						<li
-							key={index}
-							className="list-group-item d-flex justify-content-between"
-							style={{ background: item.background }}>
-							<Link to={"/single/" + index}>
-								<span>Link to: {item.title}</span>
-							</Link>
-							{// Conditional render example
-							// Check to see if the background is orange, if so, display the message
-							item.background === "orange" ? (
-								<p style={{ color: item.initial }}>
-									Check store/flux.js scroll to the actions to see the code
-								</p>
-							) : null}
-							<button className="btn btn-success" onClick={() => actions.changeColor(index, "orange")}>
-								Change Color
-							</button>
-						</li>
-					);
-				})}
-			</ul>
-			<br />
-			<Link to="/">
-				<button className="btn btn-primary">Back home</button>
-			</Link>
+			<h2>{store.editContactOrNewContact ? "Edit Contact" : "Add new contact"}</h2>
+			<form onSubmit={handleSubmit}>
+				<div className="mb-3">
+					<label htmlFor="name" className="form-label">Full Name</label>
+					<input type="text" className="form-control" id="name" name="name" placeholder="Full Name" onChange={handleChange} value={contact.name} required />
+				</div>
+				<div className="mb-3">
+					<label htmlFor="email" className="form-label">Email</label>
+					<input type="email" className="form-control" id="email" name="email" placeholder="Enter email" onChange={handleChange} value={contact.email} required />
+				</div>
+				<div className="mb-3">
+					<label htmlFor="phone" className="form-label">Phone</label>
+					<input type="text" className="form-control" id="phone" name="phone" placeholder="Enter phone" onChange={handleChange} value={contact.phone} required />
+				</div>
+				<div className="mb-3">
+					<label htmlFor="address" className="form-label">Address</label>
+					<input type="text" className="form-control" id="address" name="address" placeholder="Enter address" onChange={handleChange} value={contact.address} required />
+				</div>
+				<div className="containerButtons d-flex">
+					<button type="submit" className="btn buttonSave">{store.editContactOrNewContact ? <CiEdit /> : "Add Contact"}</button>
+
+					<Link to="/">
+						<button type="button" className="btn buttonBack"> <FaArrowLeft /> Back to contacts</button>
+					</Link>
+				</div>
+			</form>
 		</div>
 	);
 };
