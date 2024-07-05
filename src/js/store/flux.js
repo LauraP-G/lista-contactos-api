@@ -5,9 +5,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			contacts: [],
-			pictureRandom: "",
-			//pictureRandom: [],
-			editContactOrNewContact: false
+			//pictureRandom: "",
+			pictureRandom: [],
+			editContactOrNewContact: false,
+			selectedContact: {}
 		},
 		actions: {
 
@@ -65,12 +66,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 			//obtener una imagen random cada vez que se actualiza la pagina
 			fetchGetPictureRandom: async () => {
 				try {
-					//const response = await fetch("https://randomuser.me/api/?results=100");
-					const response = await fetch("https://randomuser.me/api/");
+					const response = await fetch("https://randomuser.me/api/?results=100");
+					//const response = await fetch("https://randomuser.me/api/");
 					const data = await response.json();
 
-					// const userRandom = data.results;
-					const userRandom = data.results[0].picture.large;
+					const userRandom = data.results;
+					//const userRandom = data.results[0].picture.large;
 
 
 					setStore({ pictureRandom: userRandom });
@@ -103,7 +104,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 
-			//NO FUNCIONA Actualizar contacto
+			//Actualizar contacto
 			fetchUpdateContact: (contact) => {
 
 				fetch(`https://playground.4geeks.com/contact/agendas/LauraPG/contacts/${getStore().contactId}`, {
@@ -141,8 +142,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					.then(() => {
 						// Actualizo el estado usando setStore
-						const store = getStore();
-						const updatedContacts = store.contacts.filter(contact => contact.id !== id);
+						
+						const updatedContacts = getStore().contacts.filter(contact => contact.id !== id);
 						setStore({ contacts: updatedContacts });
 					})
 					.catch((error) => {
@@ -151,8 +152,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
-			handleEditContactOrNewContact: (value, id) => {
+			handleEditContactOrNewContact: (value, id, contact) => {
 				setStore({ editContactOrNewContact: value, contactId: id })
+
+				setStore({selectedContact: contact})
 
 			}
 

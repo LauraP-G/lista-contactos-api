@@ -31,8 +31,8 @@ export const Home = () => {
 						store.contacts?.map(contact => (
 							<div className="d-flex containerMain" key={contact.id}>
 								<div>
-									{/*<img src={store.pictureRandom[contact.id].picture.large} alt="Random User" />*/}
-									<img className="imagen" src={store.pictureRandom} alt="Random User" />
+									<img className="imagen" src={store.pictureRandom[contact.id]?.picture.large} alt="Random User" />
+									{/*<img className="imagen" src={store.pictureRandom} alt="Random User" />*/}
 								</div>
 								<div className="containerInfo">
 									<h4>{contact.name}</h4>
@@ -42,10 +42,31 @@ export const Home = () => {
 								</div>
 								<div className="icons-container">
 									<Link to="/demo">
-										<MdEdit className="edit" onClick={() => actions.handleEditContactOrNewContact(true, contact.id)} />
+										<MdEdit className="edit" onClick={() => actions.handleEditContactOrNewContact(true, contact.id, contact)} />
 									</Link>
 
-									<FaTrash className="trash" onClick={() => actions.fetchDeleteContacts(contact.id)} />
+									{/*<FaTrash className="trash" onClick={() => actions.fetchDeleteContacts(contact.id)} />*/}
+									{/*<button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">*/}
+										<FaTrash type="button" data-bs-target="#exampleModal" data-bs-toggle="modal" className="trash" />
+									
+
+								</div>
+								<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">Are your sure?</h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												If you delete this thing the entire universe will go down!
+											</div>
+											<div class="modal-footer">
+												<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+												<button type="button" onClick={() => actions.fetchDeleteContacts(contact.id)} data-bs-dismiss="modal" className="btn btn-primary">Delete</button>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 

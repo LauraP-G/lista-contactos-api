@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { FaArrowLeft } from "react-icons/fa";
@@ -21,6 +21,19 @@ export const Demo = () => {
 		//si ponemos esto name: value, siempre estemos dandole una key llamada name, por lo tanto es importante añadir corchetes en este caso
 		setContact({ ...contact, [name]: value });
 	};
+
+	useEffect (()=> {
+		if(store.selectedContact){
+			setContact({
+				name: store.selectedContact.name || "",
+				email: store.selectedContact.email || "",
+				phone: store.selectedContact.phone || "",
+				address: store.selectedContact.address || "",
+
+			})
+		}
+	},[store.selectedContact])
+	
 
 	const handleSubmit = (e) => {
 		e.preventDefault(); // Evitar que la página se recargue cuando se envía el formulario.
@@ -59,7 +72,7 @@ export const Demo = () => {
 					<input type="text" className="form-control" id="address" name="address" placeholder="Enter address" onChange={handleChange} value={contact.address} required />
 				</div>
 				<div className="containerButtons d-flex">
-					<button type="submit" className="btn buttonSave">{store.editContactOrNewContact ? <CiEdit /> : "Add Contact"}</button>
+					<input type="submit" value={store.editContactOrNewContact ? "Save changes" : "Add Contact"} className="btn buttonSave"/>
 
 					<Link to="/">
 						<button type="button" className="btn buttonBack"> <FaArrowLeft /> Back to contacts</button>
