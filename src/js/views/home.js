@@ -44,13 +44,15 @@ export const Home = () => {
 									<Link to="/demo">
 										<MdEdit className="edit" onClick={() => actions.handleEditContactOrNewContact(true, contact.id, contact)} />
 									</Link>
-
-									{/*<FaTrash className="trash" onClick={() => actions.fetchDeleteContacts(contact.id)} />*/}
-									{/*<button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">*/}
-										<FaTrash type="button" data-bs-target="#exampleModal" data-bs-toggle="modal" className="trash" />
 									
+									 <FaTrash className="trash" onClick={() => actions.fetchDeleteContacts(contact.id)} /> 
+								
+									{/* <FaTrash data-bs-target="#exampleModal" data-bs-toggle="modal" className="trash" />  */}
+
 
 								</div>
+
+								{/* Modal en proceso de construcción
 								<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -63,11 +65,11 @@ export const Home = () => {
 											</div>
 											<div class="modal-footer">
 												<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												<button type="button" onClick={() => actions.fetchDeleteContacts(contact.id)} data-bs-dismiss="modal" className="btn btn-primary">Delete</button>
+												<button type="button" onClick={() =>console.log(contact.id) && actions.fetchDeleteContacts(contact.id)} data-bs-dismiss="modal" className="btn btn-primary">Delete</button>
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> */}
 							</div>
 
 
